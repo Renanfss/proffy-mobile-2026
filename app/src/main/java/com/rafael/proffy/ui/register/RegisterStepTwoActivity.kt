@@ -1,10 +1,8 @@
 package com.rafael.proffy.ui.register
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Patterns
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,7 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.rafael.proffy.R
 import com.rafael.proffy.databinding.ActivityRegisterStepTwoBinding
 import com.rafael.proffy.ui.finallyComponent.FinallyActivity
-import org.intellij.lang.annotations.Pattern
+import com.rafael.proffy.utils.ValidationUtils
 
 class RegisterStepTwoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterStepTwoBinding
@@ -90,16 +88,15 @@ class RegisterStepTwoActivity : AppCompatActivity() {
         val password = binding.textInputEditPassword.text.toString()
 
         if (isValidEmail(email) && password.length > 4) {
-            //val intent = Intent(this, RegisterStepTwoActivity::class.java)
-            //startActivity(intent)
+            // Fluxo tratado pelo envio do cadastro
         } else {
             binding.textInputEditEmail.error = "Deve conter pelo menos 3 caracteres."
             binding.textInputEditPassword.error = "Deve conter pelo menos 5 caracteres."
         }
-
     }
+
     private fun isValidEmail(email: String): Boolean {
-        return email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return ValidationUtils.isValidEmail(email)
     }
 
     private fun sendDoneRegister() {
